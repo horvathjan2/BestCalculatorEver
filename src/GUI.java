@@ -12,11 +12,12 @@ public class GUI {
 	
 	public GUI(){
 		s = new StringBuilder();
-		window = new JFrame("Hello Swing");
+		window = new JFrame("C");
 		JButton b = new JButton("Button1");
 		window.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
-		c.insets = new Insets(5, 5, 5, 5);
+		c.insets = new Insets(3, 3, 3, 3);
+		c.fill = GridBagConstraints.HORIZONTAL;
 		
 		for(int i=0; i<3; i++){
 			for(int j=0; j<3; j++){
@@ -40,25 +41,28 @@ public class GUI {
 		pushChar('0');
 		c.gridy=0;
 		c.gridx=0;
+		c.gridwidth=4;
 		window.add(numberInput, c);
 		
 		
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		window.setSize(640, 480);
+		window.setSize(200, 250);
 		window.setLocationRelativeTo(null);
 		window.setVisible(true);
 	}
 	
 	public void pushChar(char c){
-		if(s.toString().equals("0")){
-			if(c == '.'){
+		if(s.toString().length()<18){
+			if(s.toString().equals("0")){
+				if(c == '.'){
+					s.append(c);
+				} else if(c != '0'){
+					s.setCharAt(0, c);
+				}
+			} else if(!(c=='.' && s.toString().contains("."))){
 				s.append(c);
-			} else if(c != '0'){
-				s.setCharAt(0, c);
 			}
-		} else if(!(c=='.' && s.toString().contains("."))){
-			s.append(c);
+			numberInput.setText(s.toString());
 		}
-		numberInput.setText(s.toString());
 	}
 }
