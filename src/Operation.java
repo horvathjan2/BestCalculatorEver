@@ -1,3 +1,3 @@
 public interface Operation {
-    public double calc();
+    public Double calc();
 }
