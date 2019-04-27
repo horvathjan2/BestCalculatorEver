@@ -18,7 +18,7 @@ public class GUI {
 		window.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(3, 3, 3, 3);
-		c.fill = GridBagConstraints.HORIZONTAL;
+		c.fill = GridBagConstraints.BOTH;
 		
 		for(int i=0; i<3; i++){
 			for(int j=0; j<3; j++){
@@ -26,15 +26,23 @@ public class GUI {
 				b = new JButton(label.toString());
 				b.addActionListener(new NumberInputActionListener(this, label.toString().charAt(0)));
 				c.gridx=i;
-				c.gridy=4-j;
+				c.gridy=3-j;
 				window.add(b, c);
 			}
 		}
 		for(int i=0; i<2; i++){
 			b = new JButton("0.".substring(i, i+1));
 			b.addActionListener(new NumberInputActionListener(this, "0.".charAt(i)));
-			c.gridy=5;
+			c.gridy=4;
 			c.gridx=i;
+			window.add(b,c);
+		}
+		
+		for(int i=0; i<operations.size(); i++){
+			b = new JButton("op" + new Integer(i).toString());
+			c.gridy = 1 + i%4;
+			c.gridx = 4 + i/4;
+			System.out.println(4 + i/4);
 			window.add(b,c);
 		}
 		
@@ -42,18 +50,20 @@ public class GUI {
 		pushChar('0');
 		c.gridy=0;
 		c.gridx=0;
-		c.gridwidth=4;
+		c.gridwidth=5 + operations.size()/4;
 		window.add(numberInput, c);
 		
 		
+		
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		window.setSize(200, 250);
+		window.pack();
+		window.setSize(window.getWidth()+50, window.getHeight()+50);
 		window.setLocationRelativeTo(null);
 		window.setVisible(true);
 	}
 	
 	public void pushChar(char c){
-		if(s.toString().length()<18){
+		if(s.toString().length()<38){
 			if(s.toString().equals("0")){
 				if(c == '.'){
 					s.append(c);
