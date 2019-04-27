@@ -7,6 +7,6 @@ public class Subtraction extends Operation_2 {
     }
 
     public Double calc() {
-        return op1 - op2;
+        return op_1 - op_2;
     }
 }
