@@ -10,10 +10,12 @@ public class GUI {
 	private JFrame window;
 	private JLabel numberInput;
 	private StringBuilder s;
+	private Calculator calc;
 	
-	public GUI(ArrayList<Class<?>> operations){
+	public GUI(ArrayList<Class<Operation>> operations){
 		s = new StringBuilder();
 		window = new JFrame("Calculator");
+		calc = new Calculator();
 		JButton b = new JButton("Button1");
 		window.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
@@ -41,13 +43,13 @@ public class GUI {
 		for(int i=0; i<operations.size(); i++){
 			try{
 				b = new JButton(((Operation)(operations.get(i).newInstance())).getSymbol());
+				b.addActionListener(new OperationInputActionListener(this, operations.get(i)));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			
 			c.gridy = 1 + i%4;
 			c.gridx = 4 + i/4;
-			System.out.println(4 + i/4);
 			window.add(b,c);
 		}
 		
@@ -79,6 +81,16 @@ public class GUI {
 				s.append(c);
 			}
 			numberInput.setText(s.toString());
+		}
+	}
+	
+	public void pushOperation(Class<Operation> op){
+		try {
+			System.out.println(op.newInstance().getSymbol());
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
 		}
 	}
 }

@@ -7,8 +7,9 @@ import java.util.ArrayList;
 
 public class MyClassLoader {
 
-	public static ArrayList<Class<?>> loadOperators(String dirName){
-		ArrayList<Class<?>> operators = new ArrayList<>();
+	@SuppressWarnings("unchecked")
+	public static ArrayList<Class<Operation>> loadOperators(String dirName){
+		ArrayList<Class<Operation>> operators = new ArrayList<>();
 		try{
 			File operatorFile = new File(dirName);
 			URLClassLoader operatorsLoader = new URLClassLoader(new URL[] { operatorFile.toURI().toURL() });
@@ -25,7 +26,7 @@ public class MyClassLoader {
 				String className = file.getName().substring(0, file.getName().length() - 6);
 				Class<?> clazz = operatorsLoader.loadClass(className);
 				if(Operation.class.isAssignableFrom(clazz) && !Modifier.isAbstract(clazz.getModifiers())){
-					operators.add(clazz);
+					operators.add((Class<Operation>)clazz);
 				}
 			}
 			operatorsLoader.close();
