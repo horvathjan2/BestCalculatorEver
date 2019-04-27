@@ -4,13 +4,14 @@ import java.awt.Insets;
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import java.util.ArrayList;
 
 public class GUI {
 	private JFrame window;
 	private JLabel numberInput;
 	private StringBuilder s;
 	
-	public GUI(){
+	public GUI(ArrayList<Class<?>> operations){
 		s = new StringBuilder();
 		window = new JFrame("C");
 		JButton b = new JButton("Button1");
