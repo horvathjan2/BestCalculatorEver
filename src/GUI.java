@@ -85,12 +85,15 @@ public class GUI {
 	}
 	
 	public void pushOperation(Class<Operation> op){
-		try {
-			System.out.println(op.newInstance().getSymbol());
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
+		if(Operation_2.class.isAssignableFrom(op)){
+			calc.pushNumber(new Double(s.toString()));
+			try {
+				calc.pushOperation((Operation_1)(op.newInstance()));
+			} catch (InstantiationException | IllegalAccessException e) {
+				e.printStackTrace();
+			}
 		}
+		s = new StringBuilder();
+		numberInput.setText(new Double(calc.getResult()).toString());
 	}
 }
