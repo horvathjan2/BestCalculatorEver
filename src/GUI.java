@@ -13,7 +13,7 @@ public class GUI {
 	
 	public GUI(ArrayList<Class<?>> operations){
 		s = new StringBuilder();
-		window = new JFrame("C");
+		window = new JFrame("Calculator");
 		JButton b = new JButton("Button1");
 		window.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
@@ -39,7 +39,12 @@ public class GUI {
 		}
 		
 		for(int i=0; i<operations.size(); i++){
-			b = new JButton("op" + new Integer(i).toString());
+			try{
+				b = new JButton(((Operation)(operations.get(i).newInstance())).getSymbol());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
 			c.gridy = 1 + i%4;
 			c.gridx = 4 + i/4;
 			System.out.println(4 + i/4);
