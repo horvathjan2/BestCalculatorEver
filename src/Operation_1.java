@@ -1,11 +1,7 @@
 public abstract class Operation_1 implements Operation {
-    protected Double op_1;
+    protected Double op_1 = null;
 
-    public Operation_1() {
-        op_1 = null;
-    }
-
-    public Operation_1(Object op) {
+    public void setOperands(Object op) {
         if (op instanceof Operation) {
             op_1 = ((Operation)(op)).calc();
         }

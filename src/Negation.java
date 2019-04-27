@@ -1,9 +1,6 @@
 public class Negation extends Operation_1 {
-    public Negation() {
-        super();
-    }
-    public Negation(Object op) {
-        super(op);
+    public void setOperands(Object op) {
+        super.setOperands(op);
     }
 
     public Double calc() {
