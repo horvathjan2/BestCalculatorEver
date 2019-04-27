@@ -1,13 +1,7 @@
-public abstract class Operation_2 implements Operation {
-    protected Double op_1;
-    protected Double op_2;
+public abstract class Operation_2 extends Operation_1 {
+    protected Double op_2 = null;
 
-    public Operation_2() {
-        op_1 = null;
-        op_2 = null;
-    }
-
-    public Operation_2(Object op1, Object op2) {
+    public void setOperands(Object op1, Object op2) {
         if (op1 instanceof Operation) {
             op_1 = ((Operation)(op1)).calc();
         }
@@ -23,5 +17,5 @@ public abstract class Operation_2 implements Operation {
         }
     }
 
-    public abstract Double calc();
+    //public abstract Double calc();
 }
