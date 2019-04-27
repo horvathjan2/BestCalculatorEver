@@ -16,6 +16,4 @@ public abstract class Operation_2 extends Operation_1 {
             op_2 = (Double)op2;
         }
     }
-
-    //public abstract Double calc();
 }

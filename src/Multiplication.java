@@ -6,4 +6,7 @@ public class Multiplication extends Operation_2 {
     public Double calc() {
         return op_1 * op_2;
     }
+    public String getSymbol() {
+        return "*";
+    }
 }

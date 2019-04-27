@@ -6,4 +6,7 @@ public class Negation extends Operation_1 {
     public Double calc() {
         return op_1 * -1;
     }
+    public String getSymbol() {
+        return "+/-";
+    }
 }
