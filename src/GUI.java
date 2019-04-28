@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import java.util.ArrayList;
+import java.awt.event.ActionEvent;
 
 public class GUI {
 	private JFrame window;
@@ -41,6 +42,17 @@ public class GUI {
 			c.gridx=i;
 			window.add(b,c);
 		}
+		
+		b=new JButton("=");
+		b.addActionListener(new GUIActionListener(this){
+			@Override
+			public void actionPerformed(ActionEvent e){
+				getGUI().equalsButton();
+			}
+		});
+		c.gridx=2;
+		c.gridy=4;
+		window.add(b, c);
 		
 		for(int i=0; i<operations.size(); i++){
 			try{
@@ -124,5 +136,14 @@ public class GUI {
 			}
 		}
 		
+	}
+	
+	public void equalsButton(){
+		if(expectNumber){
+			calc.pushNumber(new Double(s.toString()));
+			s = new StringBuilder();
+			numberInput.setText(new Double(calc.getResult()).toString());
+			expectNumber = false;
+		}
 	}
 }
