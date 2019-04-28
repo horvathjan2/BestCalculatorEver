@@ -11,11 +11,13 @@ public class GUI {
 	private JLabel numberInput;
 	private StringBuilder s;
 	private Calculator calc;
+	private boolean expectNumber;
 	
 	public GUI(ArrayList<Class<Operation>> operations){
 		s = new StringBuilder();
 		window = new JFrame("Calculator");
 		calc = new Calculator();
+		expectNumber = true;
 		JButton b = new JButton("Button1");
 		window.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
@@ -70,30 +72,57 @@ public class GUI {
 	}
 	
 	public void pushChar(char c){
-		if(s.toString().length()<38){
-			if(s.toString().equals("0")){
-				if(c == '.'){
+		if(expectNumber){
+			if(s.toString().length()<38){
+				if(s.toString().equals("0")){
+					if(c == '.'){
+						s.append(c);
+					} else if(c != '0'){
+						s.setCharAt(0, c);
+					}
+				} else if(!(c=='.' && s.toString().contains("."))){
 					s.append(c);
-				} else if(c != '0'){
-					s.setCharAt(0, c);
 				}
-			} else if(!(c=='.' && s.toString().contains("."))){
-				s.append(c);
+				numberInput.setText(s.toString());
 			}
-			numberInput.setText(s.toString());
 		}
 	}
 	
 	public void pushOperation(Class<Operation> op){
 		if(Operation_2.class.isAssignableFrom(op)){
-			calc.pushNumber(new Double(s.toString()));
+			if(expectNumber){
+				calc.pushNumber(new Double(s.toString()));
+			}
 			try {
 				calc.pushOperation((Operation_1)(op.newInstance()));
 			} catch (InstantiationException | IllegalAccessException e) {
 				e.printStackTrace();
 			}
+			expectNumber = true;
+			s = new StringBuilder();
+			numberInput.setText(new Double(calc.getResult()).toString());
+		} else if (Operation_1.class.isAssignableFrom(op)){
+			if(expectNumber){
+				
+				Calculator tempc = new Calculator();
+				tempc.pushNumber(new Double(s.toString()));
+				try {
+					tempc.pushOperation((Operation_1)(op.newInstance()));
+				} catch (InstantiationException | IllegalAccessException e) {
+					e.printStackTrace();
+				}
+				numberInput.setText(new Double(tempc.getResult()).toString());
+				s = new StringBuilder(numberInput.getText());
+			} else {
+				try {
+					calc.pushOperation((Operation_1)(op.newInstance()));
+				} catch (InstantiationException | IllegalAccessException e) {
+					e.printStackTrace();
+				}
+				s = new StringBuilder();
+				numberInput.setText(new Double(calc.getResult()).toString());
+			}
 		}
-		s = new StringBuilder();
-		numberInput.setText(new Double(calc.getResult()).toString());
+		
 	}
 }
