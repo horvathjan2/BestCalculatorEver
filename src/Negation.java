@@ -1,8 +1,10 @@
+/**
+ * @author Mohos Bálint
+ * 
+ * Negation is a default operation with one operand that is used by the calculator.
+ * Extends Operation_1.
+ */
 public class Negation extends Operation_1 {
-    public void setOperands(Double op) {
-        super.setOperands(op);
-    }
-
     public Double calc() {
         return op_1 * -1;
     }
