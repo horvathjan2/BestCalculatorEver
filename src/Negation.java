@@ -1,5 +1,5 @@
 public class Negation extends Operation_1 {
-    public void setOperands(Object op) {
+    public void setOperands(Double op) {
         super.setOperands(op);
     }
 
