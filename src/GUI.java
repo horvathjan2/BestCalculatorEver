@@ -103,7 +103,7 @@ public class GUI {
 	
 	public void pushOperation(Class<Operation> op){
 		if(Operation_2.class.isAssignableFrom(op)){
-			if(expectNumber){
+			if(expectNumber && s.toString().length()>0){
 				calc.pushNumber(new Double(s.toString()));
 			}
 			try {
@@ -115,7 +115,7 @@ public class GUI {
 			s = new StringBuilder();
 			numberInput.setText(new Double(calc.getResult()).toString());
 		} else if (Operation_1.class.isAssignableFrom(op)){
-			if(expectNumber){
+			if(expectNumber && s.toString().length()>0){
 				
 				Calculator tempc = new Calculator();
 				tempc.pushNumber(new Double(s.toString()));
