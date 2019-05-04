@@ -5,14 +5,39 @@ import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import java.util.ArrayList;
-
+ /**
+  * 
+  * @author Horváth János
+  *
+  *GUI of the application. Forwards user input to a Calculator object. Displays results
+  */
 public class GUI {
+	/**
+	 * frame containing buttons, and JLabel to show results 
+	 */
 	private JFrame window;
+	/**
+	 * displays either the number entered by the user, or the result of the calculation
+	 */
 	private JLabel numberInput;
+	/**
+	 * stores digits entered by the user
+	 */
 	private StringBuilder s;
+	/**
+	 * calculator object handling most of the operations
+	 */
 	private Calculator calc;
+	/**
+	 * keeps track of whether the user is able to enter a new number or not
+	 */
 	private boolean expectNumber;
 	
+	/**
+	 * Creates a JFrame and fills it with the necessary components. Prepares Calculator object.
+	 * 
+	 * @param operations all operations available
+	 */
 	public GUI(ArrayList<Class<Operation_0>> operations){
 		s = new StringBuilder();
 		window = new JFrame("Calculator");
@@ -84,7 +109,11 @@ public class GUI {
 		window.setVisible(true);
 	}
 	
-	public void pushChar(char c){
+	/**
+	 * Appends a new character to the end of the number input. Drops digits entered when no number input is expected.
+	 * @param c character to append
+	 */
+	private void pushChar(char c){
 		if(expectNumber){
 			if(s.toString().length()<38){
 				if(s.toString().equals("0")){
@@ -101,7 +130,14 @@ public class GUI {
 		}
 	}
 	
-	public void pushOperation(Class<Operation_0> op){
+	/**
+	 * Handles operations entered by the user. Sorts them by number of operands expected.
+	 * Supplies double operand operations are to the main calculator object.
+	 * Applies single operand operations either to the current number input, or the result of previous calculations.
+	 * Handles constants as number input.
+	 * @param op
+	 */
+	private void pushOperation(Class<Operation_0> op){
 		try{
 			if(Operation_2.class.isAssignableFrom(op)){
 				if(expectNumber && s.toString().length()>0){
@@ -135,7 +171,10 @@ public class GUI {
 		
 	}
 	
-	public void equalsButton(){
+	/**
+	 * Ends current number input and supplies it to the calculator object
+	 */
+	private void equalsButton(){
 		if(expectNumber){
 			calc.pushNumber(new Double(s.toString()));
 			s = new StringBuilder();
