@@ -13,7 +13,7 @@ public class GUI {
 	private Calculator calc;
 	private boolean expectNumber;
 	
-	public GUI(ArrayList<Class<Operation>> operations){
+	public GUI(ArrayList<Class<Operation_0>> operations){
 		s = new StringBuilder();
 		window = new JFrame("Calculator");
 		calc = new Calculator();
@@ -57,7 +57,7 @@ public class GUI {
 		for(int i=0; i<operations.size(); i++){
 			try{
 				int li = i;
-				b = new JButton(((Operation)(operations.get(i).newInstance())).getSymbol());
+				b = new JButton(((Operation_0)(operations.get(i).newInstance())).getSymbol());
 				b.addActionListener(e -> pushOperation(operations.get(li)));
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -101,41 +101,37 @@ public class GUI {
 		}
 	}
 	
-	public void pushOperation(Class<Operation> op){
-		if(Operation_2.class.isAssignableFrom(op)){
-			if(expectNumber && s.toString().length()>0){
-				calc.pushNumber(new Double(s.toString()));
-			}
-			try {
+	public void pushOperation(Class<Operation_0> op){
+		try{
+			if(Operation_2.class.isAssignableFrom(op)){
+				if(expectNumber && s.toString().length()>0){
+					calc.pushNumber(new Double(s.toString()));
+				}
 				calc.pushOperation((Operation_1)(op.newInstance()));
-			} catch (InstantiationException | IllegalAccessException e) {
-				e.printStackTrace();
-			}
-			expectNumber = true;
-			s = new StringBuilder();
-			numberInput.setText(new Double(calc.getResult()).toString());
-		} else if (Operation_1.class.isAssignableFrom(op)){
-			if(expectNumber && s.toString().length()>0){
-				
-				Calculator tempc = new Calculator();
-				tempc.pushNumber(new Double(s.toString()));
-				try {
-					tempc.pushOperation((Operation_1)(op.newInstance()));
-				} catch (InstantiationException | IllegalAccessException e) {
-					e.printStackTrace();
-				}
-				numberInput.setText(new Double(tempc.getResult()).toString());
-				s = new StringBuilder(numberInput.getText());
-			} else {
-				try {
-					calc.pushOperation((Operation_1)(op.newInstance()));
-				} catch (InstantiationException | IllegalAccessException e) {
-					e.printStackTrace();
-				}
+				expectNumber = true;
 				s = new StringBuilder();
 				numberInput.setText(new Double(calc.getResult()).toString());
+			} else if (Operation_1.class.isAssignableFrom(op)){
+				if(expectNumber && s.toString().length()>0){
+					
+					Calculator tempc = new Calculator();
+					tempc.pushNumber(new Double(s.toString()));
+					tempc.pushOperation((Operation_1)(op.newInstance()));
+					numberInput.setText(new Double(tempc.getResult()).toString());
+					s = new StringBuilder(numberInput.getText());
+				} else {
+					calc.pushOperation((Operation_1)(op.newInstance()));
+					s = new StringBuilder();
+					numberInput.setText(new Double(calc.getResult()).toString());
+				}
+			} else if(expectNumber){
+				s = new StringBuilder(op.newInstance().calc().toString());
+				numberInput.setText(s.toString());
 			}
+		} catch (InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
 		}
+		
 		
 	}
 	
