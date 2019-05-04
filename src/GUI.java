@@ -5,7 +5,6 @@ import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import java.util.ArrayList;
-import java.awt.event.ActionEvent;
 
 public class GUI {
 	private JFrame window;
@@ -29,35 +28,37 @@ public class GUI {
 			for(int j=0; j<3; j++){
 				Integer label = new Integer(j*3+i+1);
 				b = new JButton(label.toString());
-				b.addActionListener(new NumberInputActionListener(this, label.toString().charAt(0)));
+				b.addActionListener(e -> pushChar(label.toString().charAt(0)));
 				c.gridx=i;
 				c.gridy=3-j;
 				window.add(b, c);
 			}
 		}
-		for(int i=0; i<2; i++){
-			b = new JButton("0.".substring(i, i+1));
-			b.addActionListener(new NumberInputActionListener(this, "0.".charAt(i)));
-			c.gridy=4;
-			c.gridx=i;
-			window.add(b,c);
-		}
+		
+		
+		b = new JButton("0");
+		b.addActionListener(e -> pushChar('0'));
+		c.gridy=4;
+		c.gridx=0;
+		window.add(b, c);
+		
+		b = new JButton(".");
+		b.addActionListener(e -> pushChar('.'));
+		c.gridy=4;
+		c.gridx=1;
+		window.add(b, c);
+		
 		
 		b=new JButton("=");
-		b.addActionListener(new GUIActionListener(this){
-			@Override
-			public void actionPerformed(ActionEvent e){
-				getGUI().equalsButton();
-			}
-		});
+		b.addActionListener(e -> equalsButton());
 		c.gridx=2;
-		c.gridy=4;
 		window.add(b, c);
 		
 		for(int i=0; i<operations.size(); i++){
 			try{
+				int li = i;
 				b = new JButton(((Operation)(operations.get(i).newInstance())).getSymbol());
-				b.addActionListener(new OperationInputActionListener(this, operations.get(i)));
+				b.addActionListener(e -> pushOperation(operations.get(li)));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
