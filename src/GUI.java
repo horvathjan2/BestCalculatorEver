@@ -131,11 +131,11 @@ public class GUI {
 	}
 	
 	/**
-	 * Handles operations entered by the user. Sorts them by number of operands expected.
+	 * Processes operations entered by the user. Sorts them by number of operands expected.
 	 * Supplies double operand operations are to the main calculator object.
 	 * Applies single operand operations either to the current number input, or the result of previous calculations.
 	 * Handles constants as number input.
-	 * @param op
+	 * @param op operation to process
 	 */
 	private void pushOperation(Class<Operation_0> op){
 		try{
