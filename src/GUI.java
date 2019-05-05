@@ -205,7 +205,7 @@ public class GUI {
 	 * Ends current number input and supplies it to the calculator object
 	 */
 	private void equalsButton(){
-		if(expectNumber){
+		if(s.toString().length()>0){
 			calc.pushNumber(new Double(s.toString()));
 			s = new StringBuilder();
 			numberInput.setText(new Double(calc.getResult()).toString());
@@ -243,13 +243,12 @@ public class GUI {
 	private void bracketPop(){
 		if(bracketStack.size()>0){
 			equalsButton();
-			Double num = calc.getResult();
+			String num = new Double(calc.getResult()).toString();
 			calc = bracketStack.pop();
 			expectNumber = true;
-			calc.pushNumber(num);
-			s = new StringBuilder("0");
-			numberInput.setText(new Double(calc.getResult()).toString());
-			expectNumber = false;
+			s = new StringBuilder(num);
+			numberInput.setText(num);
+			expectNumber = true;
 		}
 		
 	}
