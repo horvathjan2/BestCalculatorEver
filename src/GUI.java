@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import java.util.ArrayList;
+import java.util.Stack;
  /**
   * 
   * @author Horváth János
@@ -33,6 +34,8 @@ public class GUI {
 	 */
 	private boolean expectNumber;
 	
+	private Stack<Calculator> bracketStack;
+	
 	/**
 	 * Creates a JFrame and fills it with the necessary components. Prepares Calculator object.
 	 * 
@@ -48,6 +51,7 @@ public class GUI {
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(3, 3, 3, 3);
 		c.fill = GridBagConstraints.BOTH;
+		bracketStack = new Stack<>();
 		
 		for(int i=0; i<3; i++){
 			for(int j=0; j<3; j++){
@@ -84,6 +88,16 @@ public class GUI {
 		c.gridx=0;
 		c.gridy=1;
 		window.add(b, c);
+		
+		b = new JButton("(");
+		b.addActionListener(e -> bracketPush());
+		c.gridx=1;
+		window.add(b,c);
+		
+		b = new JButton(")");
+		b.addActionListener(e -> bracketPop());
+		c.gridx=2;
+		window.add(b,c);
 		
 		for(int i=0; i<operations.size(); i++){
 			try{
@@ -194,5 +208,27 @@ public class GUI {
 		numberInput.setText("0");
 		s = new StringBuilder();
 		expectNumber = true;
+	}
+	
+	private void bracketPush(){
+		if(expectNumber){
+			bracketStack.push(calc);
+			calc = new Calculator();
+			clear();
+		}
+	}
+	
+	private void bracketPop(){
+		if(bracketStack.size()>0){
+			equalsButton();
+			Double num = calc.getResult();
+			calc = bracketStack.pop();
+			expectNumber = true;
+			calc.pushNumber(num);
+			s = new StringBuilder();
+			numberInput.setText(new Double(calc.getResult()).toString());
+			expectNumber = false;
+		}
+		
 	}
 }
