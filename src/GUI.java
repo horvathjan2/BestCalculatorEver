@@ -148,9 +148,16 @@ public class GUI {
 				} else if(!(c=='.' && s.toString().contains("."))){
 					s.append(c);
 				}
-				numberInput.setText(s.toString());
+			}
+		} else {
+			clear();
+			if(c == '.'){
+				s.append(c);
+			} else if(c != '0'){
+				s.setCharAt(0, c);
 			}
 		}
+		numberInput.setText(s.toString());
 	}
 	
 	/**
@@ -212,7 +219,7 @@ public class GUI {
 	private void clear(){
 		calc.clear();
 		numberInput.setText("0");
-		s = new StringBuilder();
+		s = new StringBuilder("0");
 		expectNumber = true;
 		bracketStack = new Stack<>();
 	}
