@@ -55,7 +55,7 @@ public class GUI {
 				b = new JButton(label.toString());
 				b.addActionListener(e -> pushChar(label.toString().charAt(0)));
 				c.gridx=i;
-				c.gridy=3-j;
+				c.gridy=4-j;
 				window.add(b, c);
 			}
 		}
@@ -63,13 +63,13 @@ public class GUI {
 		
 		b = new JButton("0");
 		b.addActionListener(e -> pushChar('0'));
-		c.gridy=4;
+		c.gridy=5;
 		c.gridx=0;
 		window.add(b, c);
 		
 		b = new JButton(".");
 		b.addActionListener(e -> pushChar('.'));
-		c.gridy=4;
+		c.gridy=5;
 		c.gridx=1;
 		window.add(b, c);
 		
@@ -77,6 +77,12 @@ public class GUI {
 		b=new JButton("=");
 		b.addActionListener(e -> equalsButton());
 		c.gridx=2;
+		window.add(b, c);
+		
+		b = new JButton("C");
+		b.addActionListener(e -> clear());
+		c.gridx=0;
+		c.gridy=1;
 		window.add(b, c);
 		
 		for(int i=0; i<operations.size(); i++){
@@ -88,8 +94,8 @@ public class GUI {
 				e.printStackTrace();
 			}
 			
-			c.gridy = 1 + i%4;
-			c.gridx = 4 + i/4;
+			c.gridy = 1 + i%5;
+			c.gridx = 4 + i/5;
 			window.add(b,c);
 		}
 		
@@ -181,5 +187,12 @@ public class GUI {
 			numberInput.setText(new Double(calc.getResult()).toString());
 			expectNumber = false;
 		}
+	}
+	
+	private void clear(){
+		calc.clear();
+		numberInput.setText("0");
+		s = new StringBuilder();
+		expectNumber = true;
 	}
 }
