@@ -232,7 +232,7 @@ public class GUI {
 			bracketStack.push(calc);
 			calc = new Calculator();
 			numberInput.setText("0");
-			s = new StringBuilder();
+			s = new StringBuilder("0");
 			expectNumber = true;
 		}
 	}
@@ -247,7 +247,7 @@ public class GUI {
 			calc = bracketStack.pop();
 			expectNumber = true;
 			calc.pushNumber(num);
-			s = new StringBuilder();
+			s = new StringBuilder("0");
 			numberInput.setText(new Double(calc.getResult()).toString());
 			expectNumber = false;
 		}
