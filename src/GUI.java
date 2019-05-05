@@ -34,6 +34,9 @@ public class GUI {
 	 */
 	private boolean expectNumber;
 	
+	/**
+	 * Holds information from outside of the current bracket
+	 */
 	private Stack<Calculator> bracketStack;
 	
 	/**
@@ -203,21 +206,33 @@ public class GUI {
 		}
 	}
 	
+	/**
+	 * Clears the calculator
+	 */
 	private void clear(){
 		calc.clear();
 		numberInput.setText("0");
 		s = new StringBuilder();
 		expectNumber = true;
+		bracketStack = new Stack<>();
 	}
 	
+	/**
+	 * Opens a new bracket
+	 */
 	private void bracketPush(){
 		if(expectNumber){
 			bracketStack.push(calc);
 			calc = new Calculator();
-			clear();
+			numberInput.setText("0");
+			s = new StringBuilder();
+			expectNumber = true;
 		}
 	}
 	
+	/**
+	 * Closes the most recently closed bracket
+	 */
 	private void bracketPop(){
 		if(bracketStack.size()>0){
 			equalsButton();
