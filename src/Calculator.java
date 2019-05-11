@@ -51,7 +51,6 @@ public class Calculator {
      * @return The primary value that is stored in the calculator.
      */
     public double getResult() {
-        System.out.println(num1);
         return num1;
     }
     /**

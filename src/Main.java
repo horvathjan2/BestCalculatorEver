@@ -13,7 +13,6 @@ import java.util.ArrayList;
 public class Main {
 
 	public static void main(String[] args) {
-		System.out.println("Hello World");
 		new GUI(loadOperators(System.getProperty("user.dir") + "\\bin"));
 	}
 	
@@ -22,7 +21,7 @@ public class Main {
 	 * @return all loaded classes that implement an operation interface
 	 */
 	@SuppressWarnings("unchecked")
-	public static ArrayList<Class<Operation_0>> loadOperators(String dirName){
+	private static ArrayList<Class<Operation_0>> loadOperators(String dirName){
 		ArrayList<Class<Operation_0>> operators = new ArrayList<>();
 		try{
 			File operatorFile = new File(dirName);
