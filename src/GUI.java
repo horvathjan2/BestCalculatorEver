@@ -140,7 +140,7 @@ public class GUI {
 	 */
 	private void pushChar(char c){
 		if(expectNumber && enableTyping){
-			if(s.toString().length()<38){
+			if(s.toString().length()<20){
 				if(s.toString().equals("0")){
 					if(c == '.'){
 						s.append(c);
