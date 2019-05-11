@@ -4,11 +4,11 @@
 
 Ez a számológép egy csapat egyetemista project munkájának eredménye.
 
-A számológép moduláris tehát utólag hozzáadhatók műveletek és konstansok is, amik a következő indításkor automatikusan részét fogják képezni a bevitali felületnek.
+A számológép moduláris tehát utólag hozzáadhatók műveletek és konstansok is, amik a következő indításkor automatikusan részét fogják képezni a beviteli felületnek.
 
 Néhány alapművelet rendelkezésre áll.
 
-A forráskódhoz teljes dokumentáció áll rendelkezésre, többek között UML osztály diagramm is.
+A forráskódhoz teljes dokumentáció áll rendelkezésre, többek között UML osztály diagram is.
 
 ![GUIimg](./GUIimg.png)
 
@@ -20,7 +20,7 @@ Mivel az alkalmazás Java programozási nyelven íródott, ezért feltétlenül 
 
 ## Használat
 
-A számológép nem formulákat értékel ki, és precedencia sorrend sincs. A megadott műveleteket a megadott számokkal a bevitel sorrandjében számolja ki. Azonban van lehetőség zárójelezésre, amivel komplexebb műveletek is elvégezhetőek.
+A számológép nem formulákat értékel ki, és precedencia sorrend sincs. A megadott műveleteket a megadott számokkal a bevitel sorrendjében számolja ki. Azonban van lehetőség zárójelezésre, amivel komplexebb műveletek is elvégezhetőek.
 
 Ha további műveleteket vagy konstansok hozzáadására van szüksége felhasználónak, akkor a lefordított .class fájlt a bin mappába kell elhelyezni a helyes működés érdekében.
 
@@ -32,8 +32,8 @@ A számológép 3 osztályt használ a műveletekhez és konstansokhoz:
 3. 2 operandusú művelet, ami az `Operation_2` osztály.
 
 Ezen absztrakt osztályok bővítésével lehet további műveleteket hozzáadni a számológéphez. Értelem szerűen ha mondjuk egy két operandusú műveletet szeretnénk hozzáadni, akkor az osztályunknak az `Operation_2` osztályt kell bővítenie.
-Minden műveleti osztálynek kötelezően meg kell valósítania a következő metódusokat:
-1. `calc()`: Ez a metódus fogja visszaadni a művelet eredményét. Konstansoknák ez adja vissza a konstans értékét.
+Minden műveleti osztálynak kötelezően meg kell valósítania a következő metódusokat:
+1. `calc()`: Ez a metódus fogja visszaadni a művelet eredményét. Konstansoknak ez adja vissza a konstans értékét.
 2. `getSymbol()`: Ez a metódus adja vissza a számológép gombjain a műveletet reprezentáló jelet.
 
 Az alábbi kód mintaként szolgálhat:
