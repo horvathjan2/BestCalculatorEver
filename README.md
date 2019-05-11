@@ -2,7 +2,7 @@
 
 ## Bevezető
 
-Ez a számológépe egy csapat egyetemista project munkájának eredménye.
+Ez a számológép egy csapat egyetemista project munkájának eredménye.
 
 A számológép moduláris tehát utólag hozzáadhatók műveletek és konstansok is, amik a következő indításkor automatikusan részét fogják képezni a bevitali felületnek.
 
@@ -10,9 +10,13 @@ Néhány alapművelet rendelkezésre áll.
 
 A forráskódhoz teljes dokumentáció áll rendelkezésre, többek között UML osztály diagramm is.
 
+![GUIimg](./GUIimg.png)
+
 ## Használat feltételei
 
 Mivel az alkalmazás Java programozási nyelven íródott, ezért feltétlenül szükséges, hogy a Java Runtime Environment(JRE) 8-as verziója vagy annál frissebb változat telepítve legyen a számítógépre.
+
+[JRE8](https://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html)
 
 ## Használat
 
