@@ -33,6 +33,7 @@ public class GUI {
 	 * keeps track of whether the user is able to enter a new number or not
 	 */
 	private boolean expectNumber;
+	private boolean enableTyping;
 	
 	/**
 	 * Holds information from outside of the current bracket
@@ -49,6 +50,7 @@ public class GUI {
 		window = new JFrame("Calculator");
 		calc = new Calculator();
 		expectNumber = true;
+		enableTyping = true;
 		JButton b = new JButton("Button1");
 		window.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
@@ -137,7 +139,7 @@ public class GUI {
 	 * @param c character to append
 	 */
 	private void pushChar(char c){
-		if(expectNumber){
+		if(expectNumber && enableTyping){
 			if(s.toString().length()<38){
 				if(s.toString().equals("0")){
 					if(c == '.'){
@@ -175,6 +177,7 @@ public class GUI {
 				}
 				calc.pushOperation((Operation_1)(op.newInstance()));
 				expectNumber = true;
+				enableTyping = true;
 				s = new StringBuilder();
 				numberInput.setText(new Double(calc.getResult()).toString());
 			} else if (Operation_1.class.isAssignableFrom(op)){
@@ -190,9 +193,11 @@ public class GUI {
 					s = new StringBuilder();
 					numberInput.setText(new Double(calc.getResult()).toString());
 				}
+				enableTyping = false;
 			} else if(expectNumber){
 				s = new StringBuilder(op.newInstance().calc().toString());
 				numberInput.setText(s.toString());
+				enableTyping = false;
 			}
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
@@ -209,7 +214,7 @@ public class GUI {
 			calc.pushNumber(new Double(s.toString()));
 			s = new StringBuilder();
 			numberInput.setText(new Double(calc.getResult()).toString());
-			expectNumber = false;
+			enableTyping = false;
 		}
 	}
 	
@@ -221,6 +226,7 @@ public class GUI {
 		numberInput.setText("0");
 		s = new StringBuilder("0");
 		expectNumber = true;
+		enableTyping = true;
 		bracketStack = new Stack<>();
 	}
 	
@@ -234,11 +240,12 @@ public class GUI {
 			numberInput.setText("0");
 			s = new StringBuilder("0");
 			expectNumber = true;
+			enableTyping = true;
 		}
 	}
 	
 	/**
-	 * Closes the most recently closed bracket
+	 * Closes the most recently opnened bracket
 	 */
 	private void bracketPop(){
 		if(bracketStack.size()>0){
@@ -249,6 +256,7 @@ public class GUI {
 			s = new StringBuilder(num);
 			numberInput.setText(num);
 			expectNumber = true;
+			enableTyping = false;
 		}
 		
 	}
